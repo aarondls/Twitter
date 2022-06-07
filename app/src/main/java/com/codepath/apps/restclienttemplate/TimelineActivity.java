@@ -1,5 +1,6 @@
 package com.codepath.apps.restclienttemplate;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -7,8 +8,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
@@ -54,7 +58,8 @@ public class TimelineActivity extends AppCompatActivity {
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("SetOnClickListener", "Button clicked");
+                Log.i("LogoutButton", "Button clicked");
+                // what order should this be called in?
                 onLogoutButton();
                 finish();
             }
@@ -62,7 +67,7 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
     private void onLogoutButton() {
-        Log.i("SetOnClickListener", "forgetting credentials");
+        Log.i("LogoutButton", "forgetting credentials");
         // forget who's logged in
         TwitterApp.getRestClient(this).clearAccessToken();
 
@@ -71,6 +76,21 @@ public class TimelineActivity extends AppCompatActivity {
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // this makes sure the Back button won't work
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // same as above
         startActivity(i);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.compose) {
+            Toast.makeText(this, "Compose", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void populateHomeTimeline() {
