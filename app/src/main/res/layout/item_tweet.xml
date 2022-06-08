@@ -21,10 +21,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="7dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="0dp"
-        android:layout_toEndOf="@+id/ivProfileImage"
-        tools:text="HandleSample" />
+        android:layout_toEndOf="@+id/tvName"
+        tools:text="handle" />
 
     <TextView
         android:id="@+id/tvBody"
@@ -66,5 +66,16 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:background="@android:color/darker_gray" />
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/ivProfileImage"
+        android:text="Name"
+        android:textStyle="bold" />
 
 </RelativeLayout>
