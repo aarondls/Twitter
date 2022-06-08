@@ -1,5 +1,7 @@
 package com.codepath.apps.restclienttemplate.models;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,6 +15,7 @@ public class Tweet {
     public String body;
     public String createdAt;
     public User user;
+    public String mediaFirstURL;
 
     // needed for parcel
     public Tweet() {}
@@ -24,6 +27,13 @@ public class Tweet {
         tweet.createdAt = jsonObject.getString("created_at");
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
 
+        if (jsonObject.getJSONObject("entities").has("media")) {
+            Log.i("TweetFromJson", jsonObject.getJSONObject("entities").getJSONArray("media").getJSONObject(0).getString("media_url_https"));
+            tweet.mediaFirstURL = jsonObject.getJSONObject("entities").getJSONArray("media").getJSONObject(0).getString("media_url_https");
+        } else {
+            // empty URL is handled in TweetsAdapter
+            tweet.mediaFirstURL = "";
+        }
         return tweet;
     }
 

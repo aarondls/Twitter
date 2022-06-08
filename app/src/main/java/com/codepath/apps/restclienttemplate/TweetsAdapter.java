@@ -54,12 +54,14 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
     // Define a viewholder
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivProfileImage;
+        ImageView ivMedia;
         TextView tvBody;
         TextView tvScreenName;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ivProfileImage = itemView.findViewById(R.id.ivProfileImage);
+            ivMedia = itemView.findViewById(R.id.ivMedia);
             tvBody = itemView.findViewById(R.id.tvBody);
             tvScreenName = itemView.findViewById(R.id.tvScreenName);
         }
@@ -68,6 +70,13 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvBody.setText(tweet.body);
             tvScreenName.setText(tweet.user.screenName);
             Glide.with(context).load(tweet.user.publicImageUrl).into(ivProfileImage);
+            // do not display if no url provided
+            if (tweet.mediaFirstURL.isEmpty()) {
+                ivMedia.setVisibility(View.GONE);
+            } else {
+                Glide.with(context).load(tweet.mediaFirstURL).into(ivMedia);
+            }
+
         }
     }
 
@@ -79,6 +88,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
     }
 
     // Add a list of items -- change to type used
+    // Unused but required by requirements
     public void addAll(List<Tweet> list) {
         tweets.addAll(list);
         notifyDataSetChanged();
